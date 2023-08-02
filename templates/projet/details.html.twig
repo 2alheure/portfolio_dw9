@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ projet.titre }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<!-- component -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid min-h-screen place-content-center bg-gray-900">
+        <div x-data="imageSlider" class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
+            <div class="absolute right-5 top-5 z-10 rounded-full bg-gray-600 px-2 text-center text-sm text-white">
+                <span x-text="currentIndex"></span>/<span x-text="images.length"></span>
+            </div>
+
+            <button @click="previous()"
+                class="absolute left-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
+                <i class="fas fa-chevron-left text-2xl font-bold text-gray-500"></i>
+            </button>
+
+            <button @click="forward()"
+                class="absolute right-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
+                <i class="fas fa-chevron-right text-2xl font-bold text-gray-500"></i>
+            </button>
+
+            <div class="relative h-80" style="width: 30rem">
+                <template x-for="(image, index) in images">
+                    <div x-show="currentIndex == index + 1" x-transition:enter="transition transform duration-300"
+                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition transform duration-300" x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0" class="absolute top-0">
+                        <img :src="image" alt="image" class="rounded-sm" />
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="flex flex-col gap-4">
+        <h1 class="font-bold text-xl mb-2">{{ projet.titre }}</h1>
+
+        <div>
+            {{ projet.description|raw }}
+        </div>
+
+        <div>
+            {% if projet.fin %}
+            Projet s'étalant du {{ projet.debut|date('d/m/Y') }} au {{ projet.fin|date('d/m/Y') }}.
+            {% else %}
+            Projet commencé le {{ projet.debut|date('d/m/Y') }}.
+            {% endif %}
+        </div>
+
+        <div class="px-6 pt-4 pb-2">
+            {% for techno in projet.technologies %}
+            <span
+                class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#
+                {{ techno.nom }}</span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script>
+    document.addEventListener("alpine:init", () => {
+        Alpine.data("imageSlider", () => ({
+            currentIndex: 1,
+            images: [
+                {% for image in projet.images %}
+                "{{ image.url }}"
+                    {% if not loop.last %}
+        ,
+        {% endif %}
+        {% endfor %}
+            ],
+        previous() {
+        if(this.currentIndex > 1) {
+        this.currentIndex = this.currentIndex - 1;
+    }
+            },
+    forward() {
+        if (this.currentIndex < this.images.length) {
+            this.currentIndex = this.currentIndex + 1;
+        }
+    },
+        }));
+    });
+</script>
+
+
+{% endblock %}
