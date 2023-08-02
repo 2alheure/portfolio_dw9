@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez-moi ! - {{ parent() }}{% endblock %}
+
+{% block body %}
+<h1 class="text-2xl font-bold mb-8">Contactez-moi !</h1>
+
+<p>Vous pouvez me contacter sur mes réseaux :
+    {# Mettre ici le lien des réseaux #}
+</p>
+
+<p>Vous pouvez également me contacter en physique dans ma boutique située :
+    {# Mettre ici l'adresse de la boutique
+    et une Map Google #}
+</p>
+
+<p>Vous pouvez, enfin, m'écrire à l'adresse email <a href="mailto:toto">toto</a> ou utiliser le formulaire de contact
+    ci-dessous.</p>
+
+<h2 class="text-xl mb-6 mt-8 font-semibold">Formulaire de contact</h2>
+
+{% form_theme form 'tailwind_2_layout.html.twig' %}
+{{ form(form) }}
+{% endblock %}
