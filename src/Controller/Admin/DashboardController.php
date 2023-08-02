@@ -47,5 +47,6 @@ class DashboardController extends AbstractDashboardController {
 
         yield MenuItem::section('Autres');
         yield MenuItem::linkToUrl('Revenir à l\'accueil', 'fa fa-home', '/');
+        yield MenuItem::linkToLogout('Se déconnecter', 'fa fa-right-from-bracket', '/');
     }
 }

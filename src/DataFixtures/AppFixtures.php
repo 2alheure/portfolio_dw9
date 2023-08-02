@@ -20,7 +20,7 @@ class AppFixtures extends Fixture {
         $u->setPseudo('2alheure')
             ->setEmail('admin@yopmail.fr')
             ->setRoles(['ROLE_ADMIN'])
-            ->setPassword('$2y$10$dImCwd.TvDCuuc2c/d0QBuFG4jJDHC8azGQZV88aS7dYWv5U37Oi.');
+            ->setPassword('$2y$10$qMpfHTKGJ7fNcryF6N8MuOdpL.Y5FmL3kQXkjmXLOnVcGRtBONuT.');
 
 
         $faker = \Faker\Factory::create('fr_FR');
@@ -33,7 +33,7 @@ class AppFixtures extends Fixture {
             'avatar' => function () {
                 return 'https://picsum.photos/' . rand(100, 200);
             },
-            'password' => '$2y$10$dImCwd.TvDCuuc2c/d0QBuFG4jJDHC8azGQZV88aS7dYWv5U37Oi.'
+            'password' => '$2y$10$qMpfHTKGJ7fNcryF6N8MuOdpL.Y5FmL3kQXkjmXLOnVcGRtBONuT.'
         ]);
         $populator->addEntity(Projet::class, 10);
         $populator->addEntity(Image::class, 10);
