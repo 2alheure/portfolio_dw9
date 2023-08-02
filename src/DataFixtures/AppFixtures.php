@@ -28,15 +28,33 @@ class AppFixtures extends Fixture {
         $manager->persist($u);
         $manager->flush();
 
-        $populator->addEntity(Technologie::class, 10);
+        $populator->addEntity(Technologie::class, 10, [
+            'nom' => function () use ($faker) {
+                return $faker->word();
+            },
+            'icone' => function () {
+                return 'https://picsum.photos/' . rand(100, 200);
+            },
+            'niveau' => function () use ($faker) {
+                return $faker->numberBetween(0, 5);
+            }
+        ]);
         $populator->addEntity(Utilisateur::class, 5, [
             'avatar' => function () {
                 return 'https://picsum.photos/' . rand(100, 200);
             },
             'password' => '$2y$10$qMpfHTKGJ7fNcryF6N8MuOdpL.Y5FmL3kQXkjmXLOnVcGRtBONuT.'
         ]);
-        $populator->addEntity(Projet::class, 10);
-        $populator->addEntity(Image::class, 10);
+        $populator->addEntity(Projet::class, 10, [
+            'titre' => function () use ($faker) {
+                return $faker->sentence();
+            }
+        ]);
+        $populator->addEntity(Image::class, 10, [
+            'url' => function () {
+                return 'https://picsum.photos/' . rand(500, 800);
+            },
+        ]);
         $populator->addEntity(Commentaire::class, 15);
 
         $populator->addEntity(Experience::class, 10);
