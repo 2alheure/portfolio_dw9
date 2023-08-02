@@ -7,8 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CentreDInteretRepository::class)]
-class CentreDInteret
-{
+class CentreDInteret {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -23,42 +22,39 @@ class CentreDInteret
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $image = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
+    function __toString(): string {
         return $this->nom;
     }
 
-    public function setNom(string $nom): static
-    {
+    public function getId(): ?int {
+        return $this->id;
+    }
+
+    public function getNom(): ?string {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static {
         $this->nom = $nom;
 
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
+    public function getDescription(): ?string {
         return $this->description;
     }
 
-    public function setDescription(?string $description): static
-    {
+    public function setDescription(?string $description): static {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getImage(): ?string
-    {
+    public function getImage(): ?string {
         return $this->image;
     }
 
-    public function setImage(?string $image): static
-    {
+    public function setImage(?string $image): static {
         $this->image = $image;
 
         return $this;

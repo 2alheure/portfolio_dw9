@@ -6,6 +6,7 @@ use App\Repository\TechnologieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TechnologieRepository::class)]
 class Technologie
@@ -18,6 +19,8 @@ class Technologie
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+    #[Assert\GreaterThanOrEqual(0)]
+    #[Assert\LessThanOrEqual(5)]
     #[ORM\Column(nullable: true)]
     private ?float $niveau = null;
 
@@ -32,6 +35,9 @@ class Technologie
         $this->projets = new ArrayCollection();
     }
 
+    function __toString(): string {
+        return $this->nom;
+    }
     public function getId(): ?int
     {
         return $this->id;

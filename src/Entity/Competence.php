@@ -26,6 +26,10 @@ class Competence
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $icone = null;
 
+    function __toString(): string {
+        return $this->nom;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

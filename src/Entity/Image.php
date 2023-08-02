@@ -21,6 +21,10 @@ class Image
     #[ORM\JoinColumn(nullable: false)]
     private ?Projet $projet = null;
 
+    function __toString(): string {
+        return $this->url;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

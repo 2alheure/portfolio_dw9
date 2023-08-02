@@ -9,8 +9,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
-{
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -34,18 +33,19 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $avatar = null;
 
-    public function getId(): ?int
-    {
+    function __toString(): string {
+        return $this->pseudo;
+    }
+
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getEmail(): ?string
-    {
+    public function getEmail(): ?string {
         return $this->email;
     }
 
-    public function setEmail(string $email): static
-    {
+    public function setEmail(string $email): static {
         $this->email = $email;
 
         return $this;
@@ -56,16 +56,14 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @see UserInterface
      */
-    public function getUserIdentifier(): string
-    {
+    public function getUserIdentifier(): string {
         return (string) $this->email;
     }
 
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
-    {
+    public function getRoles(): array {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
@@ -73,8 +71,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): static
-    {
+    public function setRoles(array $roles): static {
         $this->roles = $roles;
 
         return $this;
@@ -83,13 +80,11 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
-    {
+    public function getPassword(): string {
         return $this->password;
     }
 
-    public function setPassword(string $password): static
-    {
+    public function setPassword(string $password): static {
         $this->password = $password;
 
         return $this;
@@ -98,31 +93,26 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials(): void
-    {
+    public function eraseCredentials(): void {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
 
-    public function getPseudo(): ?string
-    {
+    public function getPseudo(): ?string {
         return $this->pseudo;
     }
 
-    public function setPseudo(string $pseudo): static
-    {
+    public function setPseudo(string $pseudo): static {
         $this->pseudo = $pseudo;
 
         return $this;
     }
 
-    public function getAvatar(): ?string
-    {
+    public function getAvatar(): ?string {
         return $this->avatar;
     }
 
-    public function setAvatar(?string $avatar): static
-    {
+    public function setAvatar(?string $avatar): static {
         $this->avatar = $avatar;
 
         return $this;
