@@ -1,0 +1,157 @@
+{% extends 'page.html.twig' %}
+
+{% block title %}CV de DW 9 - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+
+<style>
+    h2 {
+        color: rgb(94 234 212);
+        text-transform: uppercase;
+    }
+
+    h3::before {
+        content: '⬤';
+        margin-left: -2rem;
+        color: rgb(22 78 99);
+        margin-right: 1.125rem;
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block page %}
+{#
+technos
+experiences
+centresDInteret
+competences
+formations
+#}
+
+<div class="p-16 text-center flex flex-col gap-8 uppercase">
+    <h1 class="text-teal-300 text-4xl uppercase">Développeur Web Promo 9</h1>
+    <p class="uppercase text-lg text-cyan-900">Développeur Web</p>
+    <hr class="w-full border-t-4 border-teal-300">
+</div>
+
+<div class="grid grid-cols-5 gap-16">
+    <div class="col-span-2 flex flex-col gap-24">
+        <div class="break-inside-avoid">
+            <h2 class="text-2xl mb-2">Profil</h2>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, tenetur dolorum. Quod culpa
+                laboriosam repellat officiis nisi quia ratione dolor necessitatibus deleniti, cumque tenetur quibusdam
+                pariatur quis distinctio. Cum, voluptate?
+            </p>
+        </div>
+
+        <div class="break-inside-avoid">
+            <h2 class="text-2xl mb-2">Coordonnées</h2>
+            <dl class="grid grid-cols-4">
+                <dt><i class="fa fa-phone text-teal-300 text-xl" aria-hidden="true"></i></dt>
+                <dd class="col-span-3">01 23 45 67 89</dd>
+
+                <dt><i class="fa fa-envelope text-teal-300 text-xl" aria-hidden="true"></i></dt>
+                <dd class="col-span-3"><a href="mailto:toto@yopmail.fr">toto@yopmail.fr</a></dd>
+
+                <dt><i class="fa fa-map-marker text-teal-300 text-xl" aria-hidden="true"></i></dt>
+                <dd class="col-span-3">55, rue du dromadaire <br> Montpellier</dd>
+
+            </dl>
+        </div>
+
+        <div class="text-cyan-900 break-inside-avoid">
+            <h2 class="text-2xl mb-2">Technologies</h2>
+            <dl class="grid grid-cols-2">
+                {% for tech in technos %}
+                <p class="py-1">{{ tech.nom }}</p>
+                <p class="flex gap-2 justify-end items-center py-1">
+                    {% for i in 1..5 %}
+                    <i class="fa fa-circle {% if i > tech.niveau %}text-teal-300{% endif %}" aria-hidden="true"></i>
+                    {% endfor %}
+                </p>
+                {% endfor %}
+            </dl>
+        </div>
+
+        <div class="text-cyan-900 break-inside-avoid">
+            <h2 class="text-2xl mb-2">Compétences</h2>
+            <dl class="flex gap-4 flex-wrap">
+                {% for com in competences %}
+                <p class="rounded-full px-4 py-1 text-white bg-cyan-900">{{ com.nom }}</p>
+                {% endfor %}
+            </dl>
+        </div>
+    </div>
+
+
+    <div class="col-span-3 flex flex-col gap-24">
+        <div>
+            <h2 class="text-2xl mb-2 break-after-avoid">Expérience professionnelle</h2>
+
+            <div class="flex flex-col gap-6 border-l-2 border-teal-300 pl-6">
+                {% for exp in experiences %}
+                <div class="break-inside-avoid">
+                    <h3 class="font-semibold text-cyan-900">{{ exp.titre }}</h3>
+
+                    <p class="text-teal-300 uppercase">
+                        {{ exp.debut|format_datetime(pattern="LLL yyyy", locale="fr")}}
+                        -
+                        {% if exp.fin %}
+                        {{ exp.fin|format_datetime(pattern="LLL yyyy", locale="fr")}}
+                        {% else %}
+                        Actuel
+                        {% endif %}
+                    </p>
+
+                    <p class="text-cyan-900 mt-3">
+                        {{ exp.description }}
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-2xl mb-2 break-after-avoid">Formation</h2>
+
+            <div class="flex flex-col gap-6 border-l-2 border-teal-300 pl-6">
+                {% for form in formations %}
+                <div class="break-inside-avoid">
+                    <h3 class="font-semibold text-cyan-900">{{ form.titre }}</h3>
+
+                    <p class="text-teal-300 uppercase">
+                        {{ form.debut|format_datetime(pattern="LLL yyyy", locale="fr")}}
+                        -
+                        {% if form.fin %}
+                        {{ form.fin|format_datetime(pattern="LLL yyyy", locale="fr")}}
+                        {% else %}
+                        Actuel
+                        {% endif %}
+                    </p>
+
+                    <p class="text-cyan-900 mt-3">
+                        {{ form.description }}
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="break-inside-avoid">
+            <h2 class="text-2xl mb-2">Loisirs</h2>
+            <p class="text-cyan-900">
+                {% for centre in centresDInteret %}
+                {{ centre.nom }}
+                {% if not loop.last %}
+                |
+                {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

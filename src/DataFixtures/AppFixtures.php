@@ -28,7 +28,7 @@ class AppFixtures extends Fixture {
         $manager->persist($u);
         $manager->flush();
 
-        $populator->addEntity(Technologie::class, 10, [
+        $populator->addEntity(Technologie::class, 6, [
             'nom' => function () use ($faker) {
                 return $faker->word();
             },
@@ -57,14 +57,47 @@ class AppFixtures extends Fixture {
         ]);
         $populator->addEntity(Commentaire::class, 15);
 
-        $populator->addEntity(Experience::class, 10);
-        $populator->addEntity(Formation::class, 10);
-        $populator->addEntity(CentreDInteret::class, 10, [
+        $populator->addEntity(Experience::class, 4, [
+            'titre' => function () use ($faker) {
+                return $faker->words(3, true);
+            },
+            'etablissement' => function () use ($faker) {
+                return $faker->words(2, true);
+            },
+            'lieu' => function () use ($faker) {
+                return $faker->sentence();
+            },
+            'description' => function () use ($faker) {
+                return $faker->sentence();
+            }
+        ]);
+        $populator->addEntity(Formation::class, 3, [
+            'titre' => function () use ($faker) {
+                return $faker->words(3, true);
+            },
+            'etablissement' => function () use ($faker) {
+                return $faker->words(2, true);
+            },
+            'lieu' => function () use ($faker) {
+                return $faker->sentence();
+            },
+            'description' => function () use ($faker) {
+                return $faker->sentence();
+            }
+        ]);
+        $populator->addEntity(CentreDInteret::class, 5, [
+            'nom' => function () use ($faker) {
+                return $faker->words(3, true);
+            },
             'image' => function () {
                 return 'https://picsum.photos/' . rand(100, 200);
             }
         ]);
-        $populator->addEntity(Competence::class, 10);
+        $populator->addEntity(Competence::class, 10, [
+            'nom' => function () use ($faker) {
+                return $faker->words(3, true);
+            }
+        ]);
 
         $populator->execute();
     }
