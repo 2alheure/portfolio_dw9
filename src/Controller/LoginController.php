@@ -38,6 +38,10 @@ class LoginController extends AbstractController {
             'remember_me_enabled' => true,
             'remember_me_checked' => true,
             'remember_me_label' => 'Se souvenir de moi',
+
+            'forgot_password_enabled' => true,
+            'forgot_password_path' => $this->generateUrl('app_forgot_password_request'),
+            'forgot_password_label' => 'J\'ai oublié mon mot de passe',
         ]);
     }
 
