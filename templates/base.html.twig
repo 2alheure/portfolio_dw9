@@ -19,20 +19,20 @@
 
     <header class="bg-gray-800 text-white p-4">
         <nav class="container mx-auto flex gap-16 flex-wrap">
-            <a href="{{ path('app_home') }}">Accueil</a>
+            <a href="{{ path('app_home') }}" class="underline">Accueil</a>
 
-            <a href="{{ path('app_projets') }}">Mes projets</a>
-            <a href="{{ path('app_cv') }}">Mon CV</a>
-            <a href="{{ path('app_contact') }}" class="mr-auto">Contactez-moi !</a>
+            <a href="{{ path('app_projets') }}" class="underline">Mes projets</a>
+            <a href="{{ path('app_cv') }}" class="underline">Mon CV</a>
+            <a href="{{ path('app_contact') }}" class="mr-auto underline">Contactez-moi !</a>
 
             {% if app.user %}
-                {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('admin') }}">Back-Office Administrateur</a>
-                {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('admin') }}" class="underline">Back-Office Administrateur</a>
+            {% endif %}
 
-                <a href="{{ path('app_logout') }}">Déconnexion</a>
+            <a href="{{ path('app_logout') }}" class="underline">Déconnexion</a>
             {% else %}
-                <a href="{{ path('app_login') }}">Connexion</a>
+            <a href="{{ path('app_login') }}" class="underline">Connexion</a>
             {% endif %}
         </nav>
     </header>
@@ -41,8 +41,14 @@
         {% block body %}{% endblock %}
     </div>
 
-    <footer class="bg-gray-800 text-white p-4 text-center mt-auto">
-        &copy; 2023 - DW9
+    <footer class="bg-gray-800 text-white p-4 mt-auto">
+        <nav class="container mx-auto flex gap-16 justify-center items-center">
+            <span class="mr-24">&copy; 2023 - DW9</span>
+
+            <a href="{{ path('app_mentions') }}" class="underline text-xs">Mentions légales</a>
+            <a href="{{ path('app_cgu') }}" class="underline text-xs">CGU</a>
+            <a href="{{ path('app_pol_conf') }}" class="underline text-xs">Politique de confidentialité</a>
+        </nav>
     </footer>
 </body>
 
