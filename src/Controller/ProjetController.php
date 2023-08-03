@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commentaire;
 use App\Entity\Projet;
 use App\Repository\ProjetRepository;
+use App\Repository\TechnologieRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +16,13 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ProjetController extends AbstractController {
     #[Route('/projets', name: 'app_projets')]
-    public function index(ProjetRepository $projetRepository): Response {
-        $projets = $projetRepository->findAllForDisplay();
+    public function index(ProjetRepository $projetRepository, TechnologieRepository $tr, Request $request): Response {
+
+        $technologie = $tr->find(
+            $request->query->get('techno_id', 'x')
+        );
+        $projets = $projetRepository->findAllForDisplay($technologie);
+
         return $this->render('projet/index.html.twig', compact('projets'));
     }
 

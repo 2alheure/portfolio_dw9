@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Projet;
+use App\Entity\Technologie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -22,12 +23,18 @@ class ProjetRepository extends ServiceEntityRepository {
     /**
      * @return Projet[]
      */
-    function findAllForDisplay(): array {
-        return $this->createQueryBuilder('p')
+    function findAllForDisplay(?Technologie $techno): array {
+        $qb = $this->createQueryBuilder('p')
             ->leftJoin('p.images', 'i')
             ->leftJoin('p.technologies', 't')
-            ->orderBy('p.debut', 'desc')
-            ->getQuery()
+            ->orderBy('p.debut', 'desc');
+
+        if (!empty($techno)) {
+            $qb->andWhere(':techno MEMBER OF p.technologies')
+                ->setParameter('techno', $techno);
+        }
+
+        return $qb->getQuery()
             ->getResult();
     }
 
