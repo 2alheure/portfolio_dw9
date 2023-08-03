@@ -40,6 +40,9 @@ class AppFixtures extends Fixture {
             }
         ]);
         $populator->addEntity(Utilisateur::class, 5, [
+            'pseudo' => function () use ($faker) {
+                return $faker->words(rand(1, 2), true);
+            },
             'avatar' => function () {
                 return 'https://picsum.photos/' . rand(100, 200);
             },
