@@ -21,7 +21,8 @@ class ProjetController extends AbstractController {
         $technologie = $tr->find(
             $request->query->get('techno_id', 'x')
         );
-        $projets = $projetRepository->findAllForDisplay($technologie);
+        $search = $request->query->get('search');
+        $projets = $projetRepository->findAllForDisplay($technologie, $search);
 
         return $this->render('projet/index.html.twig', compact('projets'));
     }

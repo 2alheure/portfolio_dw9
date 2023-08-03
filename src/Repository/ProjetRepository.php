@@ -23,11 +23,16 @@ class ProjetRepository extends ServiceEntityRepository {
     /**
      * @return Projet[]
      */
-    function findAllForDisplay(?Technologie $techno): array {
+    function findAllForDisplay(?Technologie $techno, ?string $search): array {
         $qb = $this->createQueryBuilder('p')
             ->leftJoin('p.images', 'i')
             ->leftJoin('p.technologies', 't')
             ->orderBy('p.debut', 'desc');
+
+        if (!empty($search)) {
+            $qb->andWhere('p.titre LIKE :search OR p.description LIKE :search')
+                ->setParameter('search', '%' . $search . '%');
+        }
 
         if (!empty($techno)) {
             $qb->andWhere(':techno MEMBER OF p.technologies')

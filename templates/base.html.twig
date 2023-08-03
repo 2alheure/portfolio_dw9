@@ -18,12 +18,29 @@
 <body class="flex flex-col min-h-screen gap-8">
 
     <header class="bg-gray-800 text-white p-4">
-        <nav class="container mx-auto flex gap-16 flex-wrap">
+        <nav class="container mx-auto flex gap-16 flex-wrap items-center">
             <a href="{{ path('app_home') }}" class="underline">Accueil</a>
 
             <a href="{{ path('app_projets') }}" class="underline">Mes projets</a>
             <a href="{{ path('app_cv') }}" class="underline">Mon CV</a>
-            <a href="{{ path('app_contact') }}" class="mr-auto underline">Contactez-moi !</a>
+            <a href="{{ path('app_contact') }}" class="underline">Contactez-moi !</a>
+
+            <form action="{{ path('app_projets') }}" method="GET" class="flex mx-auto w-96 h-8">
+                <div class="relative w-full">
+                    <input type="search" id="search" name="search"
+                        class="h-full block p-2.5 w-full z-20 text-sm focus:text-gray-900 bg-gray-900 text-white focus:bg-gray-50 rounded-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                        placeholder="Nom du projet..." required>
+                    <button type="submit"
+                        class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex justify-center items-center">
+                        <svg class="w-4 h-4 align-middle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                        <span class="sr-only">Rechercher</span>
+                    </button>
+                </div>
+            </form>
 
             {% if app.user %}
             {% if is_granted('ROLE_ADMIN') %}
